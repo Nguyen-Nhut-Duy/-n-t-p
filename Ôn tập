@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+// Hàm tìm vị trí thỏa mãn điều kiện
+int findPosition(int arr[], int n) {
+    int leftSum = 0;      // Tổng bên trái
+    int rightSum = 0;     // Tổng bên phải
+
+    // Tính tổng toàn bộ mảng để làm tổng bên phải ban đầu
+    for (int i = 0; i < n; i++) {
+        rightSum += arr[i];
+    }
+
+    // Duyệt qua từng phần tử của mảng
+    for (int i = 0; i < n; i++) {
+        rightSum -= arr[i]; // Bỏ phần tử hiện tại ra khỏi tổng bên phải
+
+        // Kiểm tra nếu tổng bên trái bằng tổng bên phải
+        if (leftSum == rightSum) {
+            return i; // Trả về vị trí thỏa mãn
+        }
+
+        leftSum += arr[i]; // Thêm phần tử hiện tại vào tổng bên trái
+    }
+
+    return -1; // Không tìm thấy vị trí thỏa mãn
+}
+
+int main() {
+    int arr[] = {7, 1, 2, 3, 5}; // Mảng bất kỳ
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    // Gọi hàm và kiểm tra kết quả
+    int result = findPosition(arr, n);
+
+    if (result != -1) {
+        printf("Vị trí thỏa mãn là: %d\n", result);
+    } else {
+        printf("Không tìm thấy vị trí thỏa mãn.\n");
+    }
+
+    return 0;
+}
